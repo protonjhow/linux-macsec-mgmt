@@ -1,0 +1,5 @@
+---
+- role: common
+- import_playbook: interface_setup.yml
+- import_playbook: encryption_setup.yml
+- import_playbook: routing_setup.yml

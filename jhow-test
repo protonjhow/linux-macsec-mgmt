@@ -1,0 +1,5 @@
+# vim: ft=yaml expandtab shiftwidth=2 softtabstop=2
+---
+all:
+  macsec1:
+  macsec2:
