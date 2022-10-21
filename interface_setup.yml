@@ -1,3 +1,19 @@
 ---
-# strip existing interfaces
-# setup macsec0 on interface
+- hosts: all
+  tasks: 
+  # strip existing interfaces
+  - name: disable parent interface 
+    ansible.builtin.command: 
+      cmd: ip link set {{ physical_interface }} down
+
+  - name: delete any existing macsec interface
+    ansible.builtin.command: 
+      cmd: ip link delete macsec0
+      removes: /sys/devices/virtual/net/macsec0/operstate
+
+
+  # setup macsec0 on interface
+  - name: setup macsec0 subinterface
+    ansible.builtin.command: 
+      cmd: ip link add link {{ physical_interface }} macsec0 type macsec encrypt on 
+      creates: /sys/devices/virtual/net/macsec0/operstate
