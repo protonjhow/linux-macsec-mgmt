@@ -1,5 +1,26 @@
 ---
-# set tx key
-# set rx key
-# enable encryption
-# enable replay protection
+- hosts: all
+  tasks: 
+  # generate some random keys
+  # dd if=/dev/urandom count=16 bs=1 2>/dev/null | hexdump | cut -c 9- | tr -d ' \n'
+  # commit the keys to vault
+  
+  # set tx key
+  - name: set tx key on each host
+    ansible.builtin.command:
+      cmd: ip macsec add macsec0 tx sa 0 pn 1 on key 01 {{ tx_key }}
+
+  # set rx neighbour on port
+  - name: set rx neighbour on port
+    ansible.builtin.command:
+      cmd: ip macsec add macsec0 rx address {{ hostvars[neighbour][portref]['macaddress'] }} port 1
+
+  # set rx key
+  - name: set rx key 
+    ansible.builtin.command:
+      cmd: ip macsec add macsec0 rx address {{ hostvars[neighbour][portref]['macaddress'] }} port 1 sa 0 pn 1 on key 02 {{ rx_key }}
+
+  # enable replay protection
+  # - name: set replay protection on
+  #   ansible.builtin.command:
+  #     cmd: ip link set macsec0 type macsec replay on window 128
