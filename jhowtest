@@ -1,0 +1,10 @@
+# vim: ft=yaml expandtab shiftwidth=2 softtabstop=2
+---
+all:
+  children:
+    jhowtest:
+      hosts:  
+        macsec1:
+          ansible_host: 192.168.99.31
+        macsec2:
+          ansible_host: 192.168.99.32
