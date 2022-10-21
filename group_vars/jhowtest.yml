@@ -2,7 +2,7 @@
 ansible_user: root
 ansible_ssh_private_key_file: ~/.ssh/id_ansible
 physical_interface: ens224
-portref: ansible_ens224
+portref: ansible_{{ physical_interface }}
 prefix: 
   ipv4: 100.99.88.0/30
   ipv6: fdab:cdef:0123:4567:89::/126
