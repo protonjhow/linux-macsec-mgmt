@@ -1,4 +1,21 @@
 ---
-# apply v4 ip address to link
-# apply v6 ip address to link
-# test
+- hosts: all
+  tasks: 
+  # bring interface back up
+  - name: bring parent interface back up
+    ansible.builtin.command: 
+      cmd: ip link set {{ physical_interface }} up
+  # bring macsec link up
+  - name: bring macsec interface back up
+    ansible.builtin.command: 
+      cmd: ip link set macsec0 up
+  
+  # apply v4 ip address to link
+  - name: apply v4 to interface
+    ansible.builtin.command: 
+      cmd: ip address add dev macsec0 {{ macsec0_ipv4 }}
+
+  # apply v6 ip address to link
+  - name: apply v6 to interface
+    ansible.builtin.command: 
+      cmd: ip address add dev macsec0 {{ macsec0_ipv6 }}
