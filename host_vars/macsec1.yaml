@@ -1,0 +1,6 @@
+---
+neighbour: macsec2
+tx_key: "{{ keyring.left }}"
+rx_key: "{{ keyring.right }}"
+macsec0_ipv4: "{{ prefix.ipv4 | ipaddr('net') | ipaddr('1') }}"
+macsec0_ipv6: "{{ prefix.ipv6 | ipaddr('net') | ipaddr('1') }}"
